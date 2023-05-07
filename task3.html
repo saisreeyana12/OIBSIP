@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do Items</title>
+  <style>
+    h1 {
+        text-align: center;
+        font-size: 36px;
+    }
+
+    input[type=text], button {
+        font-size: 24px;
+        padding: 8px;
+        margin: 8px;
+        border-radius: 8px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        margin: 8px;
+        font-size: 24px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .completed {
+        text-decoration: line-through;
+        color: #808080;
+    }
+
+    .deleteButton {
+        background-color: #f44336;
+        color: white;
+        margin-left: 8px;
+        border-radius: 8px;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>To-Do Items</h1>
+  <input type="text" id="taskInput" placeholder="Add a new task">
+  <button id="addButton" onclick="addTask()">Add</button>
+  <ul id="taskList"></ul>
+  <script>
+    let taskList = document.getElementById("taskList");
+    let taskInput = document.getElementById("taskInput");
+    let addButton = document.getElementById("addButton");
+
+    function addTask() {
+        let task = taskInput.value;
+        if (task === "") {
+            alert("Please enter a task");
+        } 
+        else {
+            let li = document.createElement("li");
+            li.innerHTML = task + '<button class="deleteButton" onclick="deleteTask(this)">Delete</button>';
+            taskList.appendChild(li);
+            taskInput.value = "";
+        }
+    }
+
+    function deleteTask(element) {
+        element.parentElement.remove();
+    }
+
+    taskInput.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            addButton.click();
+        }
+    });
+
+    taskList.addEventListener("click", function(event) {
+        if (event.target.tagName === "LI") {
+            event.target.classList.toggle("completed");
+        }
+    });
+
+  </script>>
+</body>
+</html>
